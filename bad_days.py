@@ -2,6 +2,22 @@
 
 # https://codeforces.com/problemset/problem/1203/B
 
+def area(seq, n):
+    """Generates the area of a rectangle.
+
+    Given a sequence of ordered edges in seq, calculate the area
+    of a rectangle using (n, len(seq) - i) edge pair.
+
+    Args:
+        seq: An ordered list of integers
+        n: The edge index. 
+
+    Returns:
+        The area using (n, len(seq)-i) edge pairs.
+    """
+        
+    return seq[n] * seq[len(seq) - n - 1]
+
 if __name__ == '__main__':
     n = int(input())
 
@@ -28,20 +44,18 @@ if __name__ == '__main__':
             print "NO"
             continue
 
-        area = -1
+        a = area(seq, 0)
         n = 0
         valid = True
-        for i in range(len(seq)/2):
-            a = seq[n] * seq[len(seq) - n - 1]
+        for i in range(1, len(seq)/2):
+            a_ = area(seq, i)
             #print(a)
-            if i == 0:
-                area = a
 
-            if a != area:
+            if a_ != a:
                 valid = False
                 break
 
-            area = a
+            a = a_
             n += 2
 
         if valid == False:
